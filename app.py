@@ -143,6 +143,10 @@ selection = st.sidebar.radio("Go to", ['Game Pics','Table','Num Plays','Wall of 
 
 playsDF = df2[['name','numPlays']]
 playsDF.sort_values(['numPlays','name'], ascending=[False,True], inplace=True)
+playsDF['counts'] = playsDF.apply(lambda x: (playsDF['numPlays'] >= x['numPlays']).sum(), axis=1)
+playsDF['min'] = playsDF[['numPlays','counts']].min(axis=1)
+hindex = playsDF['min'].max()
+
 # playsDF.set_index(['name'],inplace=True)
 # hIndex = [15] * playsDF.shape[0]
 
@@ -165,13 +169,31 @@ elif selection == "Num Plays":
     st.write("Results: " + str(playsDF.shape[0]))
     playsDF.reset_index(inplace=True, drop=True)
     playsDF
-    # st.bar_chart(playsDF)
-    barGraph = alt.Chart(playsDF[playsDF['numPlays']>0]).mark_bar().encode(
-        x=alt.X('name', sort=None),
-        y='numPlays') 
-    playsDF['hIndex'] = 15
-    rule = alt.Chart(playsDF).mark_rule(color='red').encode(y='hIndex')
-    st.write((barGraph + rule).properties(width=500))
+    st.header("Number of Plays by Game")
+    st.write("H-Index: " + str(hindex))
+    hOrV = st.radio("Chart Orientation",['Vertical','Horizontal'])
+    if hOrV == 'Horizontal':
+        barGraph = alt.Chart(playsDF[playsDF['numPlays']>0]).mark_bar().encode(
+            x=alt.X('name', title="Boardgame",sort=None),
+            y=alt.Y('numPlays',title="# of Plays") )
+        playsDF['hIndex'] = hindex
+        rule = alt.Chart(playsDF).mark_rule(color='red').encode(y='hIndex')
+        text = barGraph.mark_text(align='center', baseline='middle',
+                              dy=-10  # Nudges text to right so it doesn't appear on top of the bar
+                              ).encode(
+                                  text='numPlays')
+    else:
+        barGraph = alt.Chart(playsDF[playsDF['numPlays']>0]).mark_bar().encode(
+            y=alt.Y('name', title="Boardgame",sort=None),
+            x=alt.X('numPlays',title="# of Plays") )
+        playsDF['hIndex'] = hindex
+        rule = alt.Chart(playsDF).mark_rule(color='red').encode(x='hIndex')
+        text = barGraph.mark_text(align='left', baseline='middle',
+                              dx=3  # Nudges text to right so it doesn't appear on top of the bar
+                              ).encode(
+                                  text='numPlays')
+        
+    st.write((barGraph + text + rule).properties(width=600))
 else:
     st.write("Results: " + str(summaryDF.shape[0]))
     summaryDF
