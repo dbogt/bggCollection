@@ -106,6 +106,8 @@ filterOptions = "|".join(options)
 # df2 = df[df['userComment'].str.contains("Dice|Adult", regex=True)]
 #Filter for game type
 df2 = df[df['name'].str.contains(gameFilter, regex=True)]
+noImg = 'https://cf.geekdo-images.com/zxVVmggfpHJpmnJY9j-k1w__itemrep/img/Py7CTY0tSBSwKQ0sgVjRFfsVUZU=/fit-in/246x300/filters:strip_icc()/pic1657689.jpg'
+df2['image'].fillna(noImg, inplace=True)
 df2 = df2[df2['userComment'].str.contains(filterOptions, regex=True)]
 
 #Filter for time taken
