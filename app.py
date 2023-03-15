@@ -160,7 +160,7 @@ names2 = list(neverPlayedDF['Desc'])
 if selection == "Game Pics":
     st.markdown("<h1 style='text-align: center; color: orange;'>Game Collection</h1>", unsafe_allow_html=True)
     st.write("Results:" + str(len(images)))
-    st.write(df2)
+    # st.write(df2)
     st.image(images, width=150, caption=names)
 elif selection == "Wall of Shame":
     st.markdown("<h1 style='text-align: center; color: orange;'>Owned Games Never Played</h1>", unsafe_allow_html=True)
