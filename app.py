@@ -161,7 +161,7 @@ imgsTest = ['https://cf.geekdo-images.com/Ft08woV-KG3HHfO-ET6S4Q__original/img/x
             'https://cf.geekdo-images.com/mXagRMef_UNguuTh6SGfvA__original/img/vGoASJKUAD6_fokRCUN19hSLTNw=/0x0/filters:format(jpeg)/pic2641330.jpg']
 #st.image('https://cf.geekdo-images.com/Ft08woV-KG3HHfO-ET6S4Q__original/img/x7YkL7sqFAt2LAxgPx3MEv3ZMNI=/0x0/filters:format(jpeg)/pic2717772.jpg')
 st.write(df2)
-st.image(imgsTest)
+st.image(df.iloc[0:3]['image'])
 if selection == "Game Pics":
     st.markdown("<h1 style='text-align: center; color: orange;'>Game Collection</h1>", unsafe_allow_html=True)
     st.write("Results:" + str(len(images)))
