@@ -107,7 +107,7 @@ filterOptions = "|".join(options)
 #Filter for game type
 df2 = df[df['name'].str.contains(gameFilter, regex=True)]
 noImg = 'https://cf.geekdo-images.com/zxVVmggfpHJpmnJY9j-k1w__itemrep/img/Py7CTY0tSBSwKQ0sgVjRFfsVUZU=/fit-in/246x300/filters:strip_icc()/pic1657689.jpg'
-df2['image'] = df2['image'].str.replace('',noImg)
+#df2['image'] = df2['image'].str.replace('',noImg)
 df2 = df2[df2['userComment'].str.contains(filterOptions, regex=True)]
 
 #Filter for time taken
@@ -156,14 +156,14 @@ neverPlayedDF = df[(df['numPlays']==0) & (df['owned']==True)]
 images2 = list(neverPlayedDF['image'])
 names2 = list(neverPlayedDF['Desc'])
 
-st.write("DEBUG")
-imgsTest = ['https://cf.geekdo-images.com/Ft08woV-KG3HHfO-ET6S4Q__original/img/x7YkL7sqFAt2LAxgPx3MEv3ZMNI=/0x0/filters:format(jpeg)/pic2717772.jpg',
-            'https://cf.geekdo-images.com/mXagRMef_UNguuTh6SGfvA__original/img/vGoASJKUAD6_fokRCUN19hSLTNw=/0x0/filters:format(jpeg)/pic2641330.jpg']
+#st.write("DEBUG")
+#imgsTest = ['https://cf.geekdo-images.com/Ft08woV-KG3HHfO-ET6S4Q__original/img/x7YkL7sqFAt2LAxgPx3MEv3ZMNI=/0x0/filters:format(jpeg)/pic2717772.jpg',
+#            'https://cf.geekdo-images.com/mXagRMef_UNguuTh6SGfvA__original/img/vGoASJKUAD6_fokRCUN19hSLTNw=/0x0/filters:format(jpeg)/pic2641330.jpg']
 #st.image('https://cf.geekdo-images.com/Ft08woV-KG3HHfO-ET6S4Q__original/img/x7YkL7sqFAt2LAxgPx3MEv3ZMNI=/0x0/filters:format(jpeg)/pic2717772.jpg')
-st.write(df2)
-st.write(list(df2.iloc[0:3]['image']))
-st.write(imgsTest)
-st.image(imgsTest)
+#st.write(df2)
+#st.write(list(df2.iloc[0:3]['image']))
+#st.write(imgsTest)
+#st.image(imgsTest)
 if selection == "Game Pics":
     st.markdown("<h1 style='text-align: center; color: orange;'>Game Collection</h1>", unsafe_allow_html=True)
     st.write("Results:" + str(len(images)))
